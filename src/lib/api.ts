@@ -60,7 +60,7 @@ class UnifiedMovieAPI {
   }
 
   private async fetchUnifiedMovies(filters: MovieFilters): Promise<UnifiedMovieResponse> {
-    const { page = 1, limit = 20 } = filters;
+    const { limit = 20 } = filters;
     
     console.log('🔍 Fetching movies from TMDb with filters:', filters);
 
@@ -82,7 +82,7 @@ class UnifiedMovieAPI {
 
 
 
-  private async getTmdbMovies(filters: MovieFilters, neededCount: number): Promise<UnifiedMovieResponse> {
+  private async getTmdbMovies(filters: MovieFilters): Promise<UnifiedMovieResponse> {
     const { search, category, page = 1, limit = 20 } = filters;
     
     try {

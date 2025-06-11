@@ -8,7 +8,7 @@ import CollectionEditor from '@/components/CollectionEditor';
 import Link from 'next/link';
 
 export default function CollectionsPage() {
-  const { collections, loading, error, createCollection, deleteCollection } = useCollections();
+  const { collections, loading, error, createCollection } = useCollections();
   const { user } = useAuth();
   const [showEditor, setShowEditor] = useState(false);
 

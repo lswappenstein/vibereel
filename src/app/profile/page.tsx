@@ -33,7 +33,7 @@ export default function ProfilePage() {
       });
       setSaveSuccess('Attention level preference updated successfully!');
       setTimeout(() => setSaveSuccess(null), 3000);
-    } catch (err) {
+    } catch {
       setSaveError('Failed to update attention level preference');
       setTimeout(() => setSaveError(null), 5000);
     } finally {

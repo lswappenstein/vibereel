@@ -11,7 +11,7 @@ import CollectionFilter from '@/components/CollectionFilter';
 export default function CollectionDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const { getCollectionById, updateOverrides, removeMovieFromCollection } = useCollections();
+  const { getCollectionById, updateOverrides } = useCollections();
   const { user } = useAuth();
   
   const [collection, setCollection] = useState<Collection | null>(null);

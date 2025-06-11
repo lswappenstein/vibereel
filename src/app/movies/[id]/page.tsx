@@ -93,7 +93,7 @@ export default function MoviePage() {
               {error || 'Movie not found'}
             </h1>
             <p className="text-gray-600 mb-4">
-              The movie you're looking for doesn't exist or couldn't be loaded.
+              The movie you&apos;re looking for doesn&apos;t exist or couldn&apos;t be loaded.
             </p>
             <button
               onClick={() => router.push('/discover')}

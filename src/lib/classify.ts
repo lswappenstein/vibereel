@@ -348,7 +348,7 @@ function determineVibeCategory(movie: TmdbMovie | TmdbMovieDetails): {
     correctedScores[a[0] as keyof typeof correctedScores] > correctedScores[b[0] as keyof typeof correctedScores] ? a : b
   )[0] as Movie['vibe'];
 
-  const confidence = calculateVibeConfidence(correctedScores, topVibe);
+  const confidence = calculateVibeConfidence(correctedScores);
   const topScore = correctedScores[topVibe];
   
   return {
@@ -396,7 +396,7 @@ function correctVibeForCommonTraps(
   return corrected;
 }
 
-function calculateVibeConfidence(scores: Record<string, number>, topVibe: string): 'High' | 'Medium' | 'Low' {
+function calculateVibeConfidence(scores: Record<string, number>): 'High' | 'Medium' | 'Low' {
   const sortedScores = Object.values(scores).sort((a, b) => b - a);
   const topScore = sortedScores[0];
   const secondScore = sortedScores[1] || 0;

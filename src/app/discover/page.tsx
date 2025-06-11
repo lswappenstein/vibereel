@@ -315,7 +315,7 @@ export default function DiscoverPage() {
               
               {searchQuery && (
                 <span className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full border border-blue-200">
-                  Search: "{searchQuery}"
+                  Search: &quot;{searchQuery}&quot;
                 </span>
               )}
               
@@ -386,7 +386,7 @@ export default function DiscoverPage() {
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <h2 className="text-2xl font-semibold mb-1 text-gray-900">
-                    {searchQuery ? `Search Results for "${searchQuery}"` : getCategoryDisplayName(filters.category)}
+                    {searchQuery ? `Search Results for &quot;${searchQuery}&quot;` : getCategoryDisplayName(filters.category)}
                   </h2>
                   <p className="text-sm text-gray-600">
                     Showing {movies.length.toLocaleString()} of {total.toLocaleString()} movies
@@ -443,7 +443,7 @@ export default function DiscoverPage() {
               {!hasMore && movies.length > 0 && (
                 <div className="text-center py-8 mt-8">
                   <p className="text-gray-500 text-sm">
-                    🎬 You've seen all {total.toLocaleString()} movies!
+                    🎬 You&apos;ve seen all {total.toLocaleString()} movies!
                   </p>
                   <button
                     onClick={handleRefetch}
