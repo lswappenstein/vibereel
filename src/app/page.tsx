@@ -1,103 +1,147 @@
-import Image from "next/image";
+'use client';
+
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { ATTENTION_LEVELS } from '@/lib/attentionLevels';
+import { VIBES } from '@/lib/filters';
+import SearchBar from '@/components/SearchBar';
+import HomepageFilterBar from '@/components/HomepageFilterBar';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const router = useRouter();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleSearch = (query: string) => {
+    router.push(`/discover?search=${encodeURIComponent(query)}`);
+  };
+
+  return (
+    <div className="space-y-20">
+      {/* Hero Section */}
+      <section className="text-center pt-16 pb-8 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+          Match Your Movie to Your{' '}
+          <span className="text-blue-600">Mood</span>
+        </h1>
+        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          Not all movies are meant to be watched the same way. Find the perfect content
+          based on your attention level and current vibe.
+        </p>
+        <div className="max-w-2xl mx-auto">
+          <SearchBar 
+            onSearch={handleSearch}
+            placeholder="Search movies by title, vibe, or attention level..."
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </section>
+
+      {/* Filter Bar Section */}
+      <HomepageFilterBar />
+
+      {/* Attention Spectrum & Vibe Levels Section */}
+      <section className="py-12">
+        <h2 className="text-3xl font-bold text-center mb-12">
+          How VibeReel Works
+        </h2>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            
+            {/* Attention Spectrum Column */}
+            <div>
+              <h3 className="text-2xl font-bold mb-8 text-center">
+                <span className="text-blue-600">🎯</span> The Attention Spectrum
+              </h3>
+              <div className="space-y-6">
+                {ATTENTION_LEVELS.map((level) => (
+                  <div
+                    key={level.id}
+                    className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border-l-4 border-blue-500"
+                  >
+                    <div className="flex items-start space-x-4">
+                      <div className="text-3xl flex-shrink-0">{level.icon}</div>
+                      <div>
+                        <h4 className="text-lg font-semibold mb-2">{level.name}</h4>
+                        <p className="text-gray-600 text-sm">{level.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Vibe Levels Column */}
+            <div>
+              <h3 className="text-2xl font-bold mb-8 text-center">
+                <span className="text-purple-600">💫</span> Vibe Levels
+              </h3>
+              <div className="space-y-6">
+                {VIBES.map((vibe) => (
+                  <div
+                    key={vibe.id}
+                    className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border-l-4 border-purple-500"
+                  >
+                    <div className="flex items-start space-x-4">
+                      <div className="text-3xl flex-shrink-0">{vibe.icon}</div>
+                      <div>
+                        <h4 className="text-lg font-semibold mb-2">{vibe.name}</h4>
+                        <p className="text-gray-600 text-sm">{vibe.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Collections */}
+      <section className="py-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold mb-8">Featured Collections</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Link 
+              href="/collections/friday-night"
+              className="group block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2 group-hover:text-blue-600">
+                  Friday Night Deep Dive
+                </h3>
+                <p className="text-gray-600">
+                  Thought-provoking films that demand your full attention
+                </p>
+              </div>
+            </Link>
+            <Link 
+              href="/collections/sunday-comfort"
+              className="group block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2 group-hover:text-blue-600">
+                  Sunday Comfort Zone
+                </h3>
+                <p className="text-gray-600">
+                  Easy-watching favorites perfect for relaxation
+                </p>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="text-center py-16">
+        <h2 className="text-3xl font-bold mb-6">
+          Ready to find your perfect watch?
+        </h2>
+        <Link
+          href="/discover"
+          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Start Discovering
+        </Link>
+      </section>
     </div>
   );
 }
