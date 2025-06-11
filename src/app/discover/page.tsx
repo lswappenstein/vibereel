@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useFilters } from '@/context/FilterContext';
 import { useQueryFilters } from '@/hooks/useQueryFilters';
 import { getUnifiedMovies, getAPIHealthStatus, type MovieFilters } from '@/lib/api';
@@ -13,7 +14,7 @@ import SearchBar from '@/components/SearchBar';
 
 const MOVIES_PER_PAGE = 20;
 
-export default function DiscoverPage() {
+function DiscoverPageContent() {
   const { filters, setAttentionLevel, setVibe, setCategory } = useFilters();
   const queryFilters = useQueryFilters();
   const [healthStatus, setHealthStatus] = useState<{ supabase: boolean; tmdb: boolean } | null>(null);
@@ -458,5 +459,24 @@ export default function DiscoverPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function DiscoverPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex items-center justify-center py-12">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+              <p className="text-gray-600">Loading discover page...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    }>
+      <DiscoverPageContent />
+    </Suspense>
   );
 } 
