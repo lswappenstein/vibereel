@@ -61,7 +61,7 @@ export default function HomepageFilterBar() {
             Filter by Your Preferences
           </h2>
           <p className="text-gray-600">
-            Select one or more filters to find exactly what you're looking for
+            Select one or more filters to find exactly what you&apos;re looking for
           </p>
         </div>
         
